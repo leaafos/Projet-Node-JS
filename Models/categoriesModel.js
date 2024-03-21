@@ -1,37 +1,37 @@
 // db.js - Fichier pour gérer les opérations CRUD avec Knex
 
-const knex = require('knex')(require('../../knexfile')['development']);
+const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
-async function createUser(name, email) {
-  return await knex('users').insert({ name, email });
+async function createCategory(id, CategoryName) {
+  return await knex('Categories').insert({ id, CategoryName});
 }
 
 // Read
-async function getAllUsers() {
-  return await knex.select().from('users');
+async function getAllCategories() {
+  return await knex.select().from('Categories');
 }
 
-async function getUserById(id) {
-  return await knex('users').where({ id }).first();
+async function getCategoryById(id) {
+  return await knex('Categories').where({ id }).first();
 }
 
 // Update
-async function updateUser(id, newName, newEmail) {
-  return await knex('users').where({ id }).update({ name: newName, email: newEmail });
+async function updateCategory(id, newName, newEmail) {
+  return await knex('Categories').where({ id }).update({ name: newName, email: newEmail });
 }
 
 // Delete
-async function deleteUser(id) {
-  return await knex('users').where({ id }).del();
+async function deleteCategory(id) {
+  return await knex('Categories').where({ id }).del();
 }
 
 module.exports = {
-  createUser,
-  getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser
+  createCategory,
+  getAllCategories,
+  getCategoryById,
+  updateCategory,
+  deleteCategory
 };
 
 // npm install knex sqlite3

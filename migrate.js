@@ -78,6 +78,7 @@ async function createTable() {
       await knex.schema.createTable('Stocks', table => {
         table.increments('Id').primary();
         table.integer('ProductId').foreign('Products.ProductId');
+        table.string('ProductName').foreign('Products.ProductName')
         table.integer('Quantity');
       });
       console.log('La table "Stocks" a été créée avec succès.');
