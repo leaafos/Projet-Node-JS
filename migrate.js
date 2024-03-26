@@ -13,7 +13,7 @@ async function createTable() {
         table.string('Adress');
         table.integer('Zipcode');
         table.string('Country');
-        table.integer('OrderID').foreign(Orders.OrderID);
+        table.integer('OrderID');
       });
       console.log('La table "Customers" a été créée avec succès.');
     } else {
@@ -25,7 +25,7 @@ async function createTable() {
       await knex.schema.createTable('Orders', table => {
         table.increments('Id').primary();
         table.integer('CustomerId');
-        table.integer('Product_id');
+        table.integer('ProductId');
         table.date('DateOrder'); /*à vérifier*/
       });
       console.log('La table "Orders" a été créée avec succès.');
@@ -39,10 +39,10 @@ async function createTable() {
         table.increments('Id').primary();
         table.string('ProductName');
         table.integer('Price');
-        table.integer('CategoryId').foreign('Categories.CategoryId');
+        table.integer('CategoryId');
         table.integer('Weight');
-        table.string('Descritpion');
-        table.integer('StockId').foreign('Stocks.StockId');
+        table.string('Description');
+        table.integer('StockId');
       });
       console.log('La table "Products" a été créée avec succès.');
     } else {
@@ -64,8 +64,8 @@ async function createTable() {
     if (!exists) {
       await knex.schema.createTable('OrderDetails', table => {
         table.increments('Id').primary();
-        table.integer('OrderID').foreign('Orders.OrderId');
-        table.integer('ProductId').foreign('Products.ProductId')
+        table.integer('OrderID');
+        table.integer('ProductId');
         table.integer('Quantity');
       });
       console.log('La table "OrderDetails" a été créée avec succès.');
@@ -77,8 +77,8 @@ async function createTable() {
     if (!exists) {
       await knex.schema.createTable('Stocks', table => {
         table.increments('Id').primary();
-        table.integer('ProductId').foreign('Products.ProductId');
-        table.string('ProductName').foreign('Products.ProductName')
+        table.integer('ProductId');
+        table.string('ProductName');
         table.integer('Quantity');
       });
       console.log('La table "Stocks" a été créée avec succès.');

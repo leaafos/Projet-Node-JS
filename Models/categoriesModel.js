@@ -3,8 +3,8 @@
 const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
-async function createCategory(id, CategoryName) {
-  return await knex('Categories').insert({ id, CategoryName});
+async function createCategory( CategoryName) {
+  return await knex('Categories').insert({ CategoryName});
 }
 
 // Read

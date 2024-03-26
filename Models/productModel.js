@@ -1,10 +1,10 @@
 // db.js - Fichier pour gérer les opérations CRUD avec Knex
 
-const knex = require('knex')(require('./knexfile')['development']);
+const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
-async function createProduct(id, ProductName, Price, CategoryId, Weight, Description, StockId) {
-  return await knex('Products').insert({ id, ProductName, Price, CategoryId, Weight, Description, StockId });
+async function createProduct( ProductName, Price, CategoryId, Weight, Description, StockId) {
+  return await knex('Products').insert({ ProductName, Price, CategoryId, Weight, Description, StockId });
 }
 
 // Read
@@ -14,6 +14,11 @@ async function getAllProducts() {
 
 async function getProductById(id) {
   return await knex('Products').where({ id }).first();
+}
+
+//Faire appels aux produits dans la categorie
+async function getProductsByCategoryId(CategoryId) {
+  return await knex('Products').where({ CategoryId });
 }
 
 // Update
@@ -31,7 +36,8 @@ module.exports = {
   getAllProducts,
   getProductById,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getProductsByCategoryId
 };
 
 // npm install knex sqlite3
