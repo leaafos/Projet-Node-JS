@@ -91,13 +91,13 @@ const db = require('./Models');
 
 
 	// Initialize a classifier with the base classifier type and the feature extractor:
-	var intentClassifierAccept = new limdu.classifiers.EnhancedClassifier({
+	var intentClassifierProduct = new limdu.classifiers.EnhancedClassifier({
 		classifierType: TextClassifier,
 		featureExtractor: WordExtractor
 	});
 
 	// Train and test:
-	intentClassifierAccept.trainBatch([
+	intentClassifierProdcut.trainBatch([
 		{input: "Puis-je commander ce magnifique collier en or, s'il vous plaît?", output: "Collier en Or"},
 		{input: "Est-il possible de faire l'acquisition de ce splendide collier en or?", output: "Collier en Or"},
 		{input: "Serait-il envisageable d'acheter ce superbe collier en or?", output: "Collier en Or"},
@@ -331,45 +331,42 @@ const db = require('./Models');
 		}
 	}
 
-	/*const bijoux_want = prompt("Voici trois ${current.bijoux}, lequel voulez-vous"+ colliers);
-	predicted_response = intentClassifier.classify(bijoux_want);
+	const product_want = prompt("Voici trois ${current.bijoux}, lequel voulez-vous"+ colliers);
+	predicted_response_product = intentClassifierProduct.classify(product_want);
 
-	let current_bijoux = null
+	let current_product = null
 	// console.log('predicted_response', predicted_response)
 	for (bijoux of bijoux) {
-		if (bijoux.name == predicted_response[0]) {
-			console.log("Voici nos ", bijoux['name'] /*ici afficher colliers *//*)
-			current_bijoux = bijoux 
+		if (product.name == predicted_response[0]) {
+			console.log("Voici nos ", product['name'])//Afficher les collier 
+			current_product = product
 			break
 		}
-	}*/ 
+	} 
 	//Voici trois propositions choissisez celle qui vous plait 
 
-	const want_qty = prompt(`Combien de ${current_bijoux.name} voulez-vous ?`);
-		console.log(`Vous voulez ${Number(want_qty)} ${current_bijoux.name}(s)`)
-		bijoux_from_db = await db.getbijouxById(current_bijoux.id)
-		if (bijoux_from_db.quantity <= 0) {
-			console.log(`Nous n'avons plus de ${bijoux_from_db.name}!`)
+	const want_qty = prompt(`Combien de ${current_product.name} voulez-vous ?`);
+		console.log(`Vous voulez ${Number(want_qty)} ${current_product.name}(s)`)
+		products_from_db = await db.getProductById(current_product.id)
+		if (product_from_db.quantity <= 0) {
+			console.log(`Nous n'avons plus de ${product_from_db.name}!`)
 		} else {
-			db.updateBoisson(current_boisson.id, boisson_from_db.quantity - Number(want_qty))
 			if (Number(want_qty) == 1) {
-				console.log('Ok merci prennez votre boisson!')
+				console.log('Ok merci prennez votre bijou!')
 			} else {
 				console.log('Ok merci prennez vos bijoux!')
 			}
 		}
-
-	const yesno = prompt(`Souhaitez-vous payer votre ${current_boisson.name} ?`);
+	
+	const yesno = prompt(`Souhaitez-vous payer votre ${current_product.name} ?`);
 	predicted_response = intentClassifierAccept.classify(yesno);
 	if (predicted_response[0] == 'non') {
 		console.log('Merci et à la prochaine!')
 	}
-
 	if (predicted_response[0] == 'oui') {
-
-		//message merci de votre achat voici vos produits
+		console.log('Merci pour votre achat !')
+		db.updateProduct(current_product.id, product_from_db.quantity - Number(want_qty))
 		// création de numéro de commande 
 		//Afficher le numéro de commande 
-
 	}
-})()
+})
