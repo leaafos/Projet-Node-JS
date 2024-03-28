@@ -1,8 +1,8 @@
 var limdu = require('limdu');
 const prompt = require("prompt-sync")({ sigint: true });
-const db = require('./Models');
+const db = require('./Models/categoriesModel.js', './Models/productModel.js');
 
-(async function() {
+(async function main() {
 
 	const bijoux = await db.getAllProducts()
 	console.log(bijoux)
@@ -97,7 +97,7 @@ const db = require('./Models');
 	});
 
 	// Train and test:
-	intentClassifierProdcut.trainBatch([
+	intentClassifierProduct.trainBatch([
 		{input: "Puis-je commander ce magnifique collier en or, s'il vous plaît?", output: "Collier en Or"},
 		{input: "Est-il possible de faire l'acquisition de ce splendide collier en or?", output: "Collier en Or"},
 		{input: "Serait-il envisageable d'acheter ce superbe collier en or?", output: "Collier en Or"},
