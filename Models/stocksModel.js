@@ -3,8 +3,8 @@
 const knex = require('knex')(require('../knexfile')['development']);
 
 // Create
-async function createStock(id, ProductId, Quantity, ProductName) {
-  return await knex('Stocks').insert({ id, ProductId, Quantity, ProductName });
+async function createStock( ProductId, Quantity, ProductName) {
+  return await knex('Stocks').insert({ ProductId, Quantity, ProductName });
 }
 
 // Read

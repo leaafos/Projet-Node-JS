@@ -1,10 +1,10 @@
 var limdu = require('limdu');
 const prompt = require("prompt-sync")({ sigint: true });
-const db = require('./Model./');
+const db = require('./Models');
 
 (async function() {
 
-	const bijoux = await db.getAllbijoux()
+	const bijoux = await db.getAllProducts()
 	console.log(bijoux)
 	// First, define our base classifier type (a multi-label classifier based on winnow):
 	var TextClassifier = limdu.classifiers.multilabel.BinaryRelevance.bind(0, {
@@ -69,6 +69,24 @@ const db = require('./Model./');
 		{input: "Je souhaiterais des Boucles d'oreille", output: "Boucles d'oreille"},
 		{input: "Bijoux aux oreilles", output: "Boucles d'oreille"},
 
+		{input: "Je veux un Piercing", output: "Piercing"},
+		{input: "Piercings", output: "Piercing"},
+		{input: "Des Piercings svp", output: "Piercing"},
+		{input: "Des Piercigs", output: "Piercing"},
+		{input: "Serait-il possible d'avoir des Pierecing ?", output: "Piercing"},
+		{input: "J'aimerais des Piercing'", output: "Piercing"},
+		{input: "Je souhaiterais des Piercings", output: "Piercing"},
+		{input: "Bijoux aux oreilles", output: "Piercing"},
+
+		{input: "Je veux un Earcuff", output: "Earcuff"},
+		{input: "Earcuffs", output: "Earcuff"},
+		{input: "Des Earcuffs svp", output: "Earcuff"},
+		{input: "Des Earcufs", output: "Earcuff"},
+		{input: "Serait-il possible d'avoir des Earccuffs ?", output: "Earcuff"},
+		{input: "J'aimerais des Earccufs'", output: "Earcuff"},
+		{input: "Je souhaiterais des Earcuffs", output: "Earcuff"},
+		{input: "Bijoux aux oreilles", output: "Earcuff"},
+
 	]);
 
 
@@ -115,14 +133,42 @@ const db = require('./Model./');
 	predicted_response = intentClassifier.classify(bijoux_want);
 
 	let current_bijoux = null
-	// console.log('predicted_response', predicted_response)
-	for (bijoux of bijoux) {
+	console.log('Vous voulez :', predicted_response)
+	for (bijou of bijoux) {
 		if (bijoux.name == predicted_response[0]) {
-			console.log("Voici nos ", bijoux['name'] /*ici afficher colliers */)
-			current_bijoux = bijoux 
+			console.log("Voici nos ", {bijoux}/*ici afficher colliers */)
+			current_bijoux = bijou 
 			break
 		}
 	}
+
+	/*const bijoux_want = prompt("Voici trois ${current.bijoux}, lequel voulez-vous"+ colliers);
+	predicted_response = intentClassifier.classify(bijoux_want);
+
+	let current_bijoux = null
+	// console.log('predicted_response', predicted_response)
+	for (bijoux of bijoux) {
+		if (bijoux.name == predicted_response[0]) {
+			console.log("Voici nos ", bijoux['name'] /*ici afficher colliers *//*)
+			current_bijoux = bijoux 
+			break
+		}
+	}*/ 
+	//Voici trois propositions choissisez celle qui vous plait 
+
+	const want_qty = prompt(`Combien de ${current_bijoux.name} voulez-vous ?`);
+		console.log(`Vous voulez ${Number(want_qty)} ${current_bijoux.name}(s)`)
+		bijoux_from_db = await db.getbijouxById(current_bijoux.id)
+		if (bijoux_from_db.quantity <= 0) {
+			console.log(`Nous n'avons plus de ${bijoux_from_db.name}!`)
+		} else {
+			db.updateBoisson(current_boisson.id, boisson_from_db.quantity - Number(want_qty))
+			if (Number(want_qty) == 1) {
+				console.log('Ok merci prennez votre boisson!')
+			} else {
+				console.log('Ok merci prennez vos bijoux!')
+			}
+		}
 
 	const yesno = prompt(`Souhaitez-vous payer votre ${current_boisson.name} ?`);
 	predicted_response = intentClassifierAccept.classify(yesno);
@@ -132,19 +178,9 @@ const db = require('./Model./');
 
 	if (predicted_response[0] == 'oui') {
 
-		const want_qty = prompt(`Avez-vous besoin de combien de ${current_boisson.name} ?`);
-		console.log(`Vous voulez ${Number(want_qty)} ${current_boisson.name}(s)`)
-		boisson_from_db = await db.getbijouxById(current_boisson.id)
-		if (boisson_from_db.quantity <= 0) {
-			console.log(`Nous n'avons plus de ${boisson_from_db.name}!`)
-		} else {
-			db.updateBoisson(current_boisson.id, boisson_from_db.quantity - Number(want_qty))
-			if (Number(want_qty) == 1) {
-				console.log('Ok merci prennez votre boisson!')
-			} else {
-				console.log('Ok merci prennez vos bijoux!')
-			}
-		}
-	}
+		//message merci de votre achat voici vos produits
+		// création de numéro de commande 
+		//Afficher le numéro de commande 
 
+	}
 })()

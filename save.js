@@ -2,7 +2,7 @@
 
 const { getAllCategories, createCategory, deleteCategory, getCategoryById } = require('./Models/categoriesModel');
 const { getAllProducts, createProduct, deleteProduct, updateProduct, getProductsByCategoryId  } = require ('./Models/productModel')
-const { getAllStocks, createStock} = require('./Models/stocksModel');
+const { getAllStocks, createStock, deleteStock} = require('./Models/stocksModel');
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -17,9 +17,28 @@ async function main() {
   await createCategory( 'Bagues');
   await createCategory( 'Piercings');
   await createCategory( 'Earcuffs');
+  
 */
+//await deleteStock(3);
 //await createProduct("Earcuffs en Or", 40, 6, 10, "Joli Earcuffs en Or", 16);
-  await createStock(2,10,"Collier en Argent")
+  //await createStock(2,80,"Collier en Argent")
+
+  /*await createStock(3,100,"Collier en Or blanc")
+  await createStock(4,90,"Bracelet en Or")
+  await createStock(5,0,"Bracelet en Argent")
+  await createStock(6,50,"Bracelet en Or blanc")
+  await createStock(7,70,"Boucles d'oreilles en Or")
+  await createStock(8,85,"Boucles d'oreilles en Argent")
+  await createStock(9,70,"Boucles d'oreilles en Or blanc")
+  await createStock(10,10,"Bagues en Or")
+  await createStock(11,10,"Bagues en Argent")
+  await createStock(13,10,"Bagues en Or blanc")
+  await createStock(14,10,"Piercing en Or")
+  await createStock(15,10,"Piercing en Argent")
+  await createStock(16,10,"Piercing en Or blanc")
+  await createStock(17,10,"Earcuff en Or")
+  await createStock(18,10,"Earcuff en Argent")
+  await createStock(19,10,"Earcuff en Or blanc")*/
     // Read
     //const categories = await getAllCategories()
     //console.log('Toutes les catégories :', categories, getCategoryById);
@@ -31,7 +50,7 @@ async function main() {
     //console.log('Tous les produits :',  products);
 
     const stock = await getAllStocks();
-    console.log('Tous le stock:',  stock);
+    console.log('Tout le stock:',  stock);
 
   // // // Update
    //await updateProduct(12, "Boucles d'oreilles en Or blanc", 25, 4, "Jolies Boucles d'oreilles en Or blanc", 12);
