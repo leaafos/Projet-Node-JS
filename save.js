@@ -1,7 +1,7 @@
 // App.js - Utilisation des opérations CRUD avec Knex
 
-const { getAllCategories, createCategory, deleteCategory, getCategoryById } = require('./Models/categoriesModel');
-const { getAllProducts, createProduct, deleteProduct, updateProduct, getProductsByCategoryId  } = require ('./Models/productModel')
+const { getAllCategories, createCategory, deleteCategory, getCategoryById } = require('./categoriesModel');
+const { getAllProducts, createProduct, deleteProduct, updateProduct, getProductsByCategoryId  } = require ('./productModel')
 const { getAllStocks, createStock, deleteStock} = require('./Models/stocksModel');
 
 function getRandomInt(max) {

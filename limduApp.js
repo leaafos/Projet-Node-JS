@@ -1,10 +1,15 @@
 var limdu = require('limdu');
+const { getProductsByCategoryId } = require('./productModel');
+const { getAllProducts } = require('./productModel');
+const { getAllCategories } = require('./categoriesModel');
+const { getProductById } = require('./productModel');
 const prompt = require("prompt-sync")({ sigint: true });
-const db = require('./Models/categoriesModel.js', './Models/productModel.js');
 
-(async function main() {
+const db = require('./categoriesModel.js', './productModel.js');
 
-	const bijoux = await db.getAllProducts()
+(async function main(){
+
+	const bijoux =await getAllProducts();
 	console.log(bijoux)
 	// First, define our base classifier type (a multi-label classifier based on winnow):
 	var TextClassifier = limdu.classifiers.multilabel.BinaryRelevance.bind(0, {
@@ -299,55 +304,107 @@ const db = require('./Models/categoriesModel.js', './Models/productModel.js');
 
 
 	// Initialize a classifier with the base classifier type and the feature extractor:
-	var intentClassifierAccept = new limdu.classifiers.EnhancedClassifier({
+	var intentClassifierNumber = new limdu.classifiers.EnhancedClassifier({
 		classifierType: TextClassifier,
 		featureExtractor: WordExtractor
 	});
 
 	// Train and test:
-	intentClassifierAccept.trainBatch([
-		{input: "Je veux bien cette boisson", output: "oui"},
-		{input: "Donne moi !", output: "oui"},
-		{input: "je prends", output: "oui"},
-		{input: "ok", output: "oui"},
-		{input: "je ne prends pas", output: "no"},
-		{input: "Non c'est trop chère", output: "non"},
-		{input: "Non je veux pas", output: "non"},
-		{input: "Non sait pas !", output: "non"},
+	intentClassifierNumber.trainBatch([
+		{input: "Pourrais-je en commander une seule pièce ?", output: "1"},
+		{input: "Je souhaiterais acheter un exemplaire, s'il vous plaît.", output: "1"},
+		{input: "Est-il possible de en commander un seul de ce modèle?", output: "1"},
+		{input: "Puis-je passer commande pour un seul ?", output: "1"},
+		{input: "1 pièce", output: "1"},
+		{input: "1", output: "1"},
+		{input: "Je désirerais achete, s'il vous plaît.", output: "1"},
+		{input: "Pourriez-vous me en fournir un seul, selon le modèle choisi?", output: "1"},
+		{input: "J'aimerais en commander un seul, celui-ci, s'il vous plaît.", output: "1"},
+		{input: "Est-il possible de en commander un exemplaire unique ?", output: "1"},
+
+		{input: "Pourrais-je en commander 2 pièces ?", output: "2"},
+		{input: "Je souhaiterais acheter 2 exemplaires, s'il vous plaît.", output: "2"},
+		{input: "Est-il possible de en commander deux de ce modèle?", output: "2"},
+		{input: "Puis-je passer commande pour deux ?", output: "2"},
+		{input: "2 pièces", output: "2"},
+		{input: "2", output: "2"},
+		{input: "Je désirerais acheter deux exemplaires, s'il vous plaît.", output: "2"},
+		{input: "Pourriez-vous me en fournir deux, selon le modèle choisi?", output: "2"},
+		{input: "J'aimerais en commander deux, celui-ci, s'il vous plaît.", output: "2"},
+		{input: "Est-il possible de en commander deux exemplaires ?", output: "2"},
+
+		{input: "Pourrais-je en commander 3 pièces ?", output: "3"},
+		{input: "Je souhaiterais acheter trois exemplaires, s'il vous plaît.", output: "3"},
+		{input: "Est-il possible de en commander 3 de ce modèle?", output: "3"},
+		{input: "Puis-je passer commande pour 3 ?", output: "3"},
+		{input: "3 pièces", output: "3"},
+		{input: "3", output: "3"},
+		{input: "Je désirerais acheter trois, s'il vous plaît.", output: "3"},
+		{input: "Pourriez-vous me en fournir 3, selon le modèle choisi?", output: "3"},
+		{input: "J'aimerais en commander trois , celui-ci, s'il vous plaît.", output: "3"},
+		{input: "Est-il possible de en commander trois exemplaires ?", output: "3"},
+
+		{input: "Pourrais-je en commander 4 pièces ?", output: "4"},
+		{input: "Je souhaiterais acheter quatre exemplaires, s'il vous plaît.", output: "4"},
+		{input: "Est-il possible de en commander 4 de ce modèle?", output: "4"},
+		{input: "Puis-je passer commande pour 4 ?", output: "4"},
+		{input: "4 pièces", output: "4"},
+		{input: "4", output: "4"},
+		{input: "Je désirerais acheter quatre, s'il vous plaît.", output: "4"},
+		{input: "Pourriez-vous me en fournir 4, selon le modèle choisi?", output: "4"},
+		{input: "J'aimerais en commander quatre , celui-ci, s'il vous plaît.", output: "4"},
+		{input: "Est-il possible de en commander quatre exemplaires ?", output: "4"},
+
+		{input: "Pourrais-je en commander 5 pièces ?", output: "5"},
+		{input: "Je souhaiterais acheter cinq exemplaires, s'il vous plaît.", output: "5"},
+		{input: "Est-il possible de en commander 5 de ce modèle?", output: "5"},
+		{input: "Puis-je passer commande pour 5 ?", output: "5"},
+		{input: "5 pièces", output: "5"},
+		{input: "5", output: "5"},
+		{input: "Je désirerais acheter cinq, s'il vous plaît.", output: "5"},
+		{input: "Pourriez-vous me en fournir 5, selon le modèle choisi?", output: "5"},
+		{input: "J'aimerais en commander cinq , celui-ci, s'il vous plaît.", output: "5"},
+		{input: "Est-il possible de en commander cinq exemplaires ?", output: "5"},
 	]);
 
 
 	console.log('Bonjour')
-	const bijoux_want = prompt("Quelle catégorie de bijoux cherchez-vous (Bracelets, Colliers, Bagues, Boucles d'oreille, Priecings, Earcuffs) ?");
+	const bijoux_want = prompt("Quelle catégorie de bijoux cherchez-vous (Bracelets, Colliers, Bagues, Boucles d'oreille, Piercings, Earcuffs) ?");
 	predicted_response = intentClassifier.classify(bijoux_want);
 
 	let current_bijoux = null
 	console.log('Vous voulez :', predicted_response)
-	for (bijou of bijoux) {
-		if (bijoux.name == predicted_response[0]) {
-			console.log("Voici nos ", {bijoux}/*ici afficher colliers */)
-			current_bijoux = bijou 
+	for (product of bijoux) {
+		if (db.ProductName == predicted_response[0]) {
+			current_bijoux = db.ProductName
 			break
 		}
 	}
 
-	const product_want = prompt("Voici trois ${current.bijoux}, lequel voulez-vous"+ colliers);
+	console.log("Voici trois "+ predicted_response)
+	const prds = await getAllProducts();
+	for(p of prds) {
+		console.log(p.ProductName)
+	}
+	const product_want = prompt("lequel voulez-vous ?");
 	predicted_response_product = intentClassifierProduct.classify(product_want);
 
 	let current_product = null
 	// console.log('predicted_response', predicted_response)
-	for (bijoux of bijoux) {
-		if (product.name == predicted_response[0]) {
-			console.log("Voici nos ", product['name'])//Afficher les collier 
+	for (product of bijoux) {
+		if (db.name == predicted_response[0]) {
+			console.log("Voici nos ", getProductsByCategoryId(db.products.categoryId))//Afficher les collier 
 			current_product = product
 			break
 		}
 	} 
 	//Voici trois propositions choissisez celle qui vous plait 
 
-	const want_qty = prompt(`Combien de ${current_product.name} voulez-vous ?`);
-		console.log(`Vous voulez ${Number(want_qty)} ${current_product.name}(s)`)
-		products_from_db = await db.getProductById(current_product.id)
+	const want_qty = prompt(`Combien de ${predicted_response_product} voulez-vous ?`);
+	predicted_response_number = intentClassifierNumber.classify(product_want);
+
+		console.log(`Vous voulez ${Number(predicted_response_number)} ${current_product}`)
+		products_from_db = await getProductById()
 		if (product_from_db.quantity <= 0) {
 			console.log(`Nous n'avons plus de ${product_from_db.name}!`)
 		} else {
@@ -369,4 +426,4 @@ const db = require('./Models/categoriesModel.js', './Models/productModel.js');
 		// création de numéro de commande 
 		//Afficher le numéro de commande 
 	}
-})
+})()
