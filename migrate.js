@@ -43,6 +43,7 @@ async function createTable() {
         table.integer('Weight');
         table.string('Description');
         table.integer('StockId');
+        table.integer('Quantity').foreign(Stocks.Quantity);
       });
       console.log('La table "Products" a été créée avec succès.');
     } else {

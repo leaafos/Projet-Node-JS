@@ -3,6 +3,7 @@ const { getProductsByCategoryId } = require('./productModel');
 const { getAllProducts } = require('./productModel');
 const { getAllCategories } = require('./categoriesModel');
 const { getProductById } = require('./productModel');
+const { updateProduct } = require('./productModel');
 const prompt = require("prompt-sync")({ sigint: true });
 
 const db = require('./categoriesModel.js', './productModel.js');
@@ -11,6 +12,8 @@ const db = require('./categoriesModel.js', './productModel.js');
 
 	const bijoux =await getAllProducts();
 	console.log(bijoux)
+	const categories =await getAllCategories();
+	console.log(categories)
 	// First, define our base classifier type (a multi-label classifier based on winnow):
 	var TextClassifier = limdu.classifiers.multilabel.BinaryRelevance.bind(0, {
 		binaryClassifierType: limdu.classifiers.Winnow.bind(0, {retrain_count: 10})
@@ -317,6 +320,7 @@ const db = require('./categoriesModel.js', './productModel.js');
 		{input: "Puis-je passer commande pour un seul ?", output: "1"},
 		{input: "1 pièce", output: "1"},
 		{input: "1", output: "1"},
+		{input: "un seul", output: "1"},
 		{input: "Je désirerais achete, s'il vous plaît.", output: "1"},
 		{input: "Pourriez-vous me en fournir un seul, selon le modèle choisi?", output: "1"},
 		{input: "J'aimerais en commander un seul, celui-ci, s'il vous plaît.", output: "1"},
@@ -367,44 +371,62 @@ const db = require('./categoriesModel.js', './productModel.js');
 		{input: "Est-il possible de en commander cinq exemplaires ?", output: "5"},
 	]);
 
+	var intentClassifierAccept = new limdu.classifiers.EnhancedClassifier({
+		classifierType: TextClassifier,
+		featureExtractor: WordExtractor
+	});
+	intentClassifierAccept.trainBatch([
+		{input: "Je veux payer", output: "Oui"},
+		{input: "oui", output: "Oui"},
+		{input: "Je ne veux pas payer", output: "Non"},
+		{input: "non", output: "Non"},
+	])
+	
 
 	console.log('Bonjour')
 	const bijoux_want = prompt("Quelle catégorie de bijoux cherchez-vous (Bracelets, Colliers, Bagues, Boucles d'oreille, Piercings, Earcuffs) ?");
 	predicted_response = intentClassifier.classify(bijoux_want);
 
-	let current_bijoux = null
+	let current_category = null
 	console.log('Vous voulez :', predicted_response)
-	for (product of bijoux) {
-		if (db.ProductName == predicted_response[0]) {
-			current_bijoux = db.ProductName
+	for (category of categories) {
+		if (category.CategoryName.toLowerCase() == predicted_response[0].toLowerCase()) {
+			current_category = category
 			break
 		}
 	}
 
-	console.log("Voici trois "+ predicted_response)
-	const prds = await getAllProducts();
-	for(p of prds) {
-		console.log(p.ProductName)
-	}
-	const product_want = prompt("lequel voulez-vous ?");
+	//console.log(categories, predicted_response, current_category)
+
+	console.log("Voici trois "+ predicted_response, current_category)
+	
+	for (product of bijoux) {
+		if (current_category.Id == product.CategoryId){
+			console.log(product.ProductName)
+		}
+	} 
+
+	const product_want = prompt("lequel voulez-vous (en or, en argent, en or blanc)?");
 	predicted_response_product = intentClassifierProduct.classify(product_want);
 
 	let current_product = null
-	// console.log('predicted_response', predicted_response)
 	for (product of bijoux) {
-		if (db.name == predicted_response[0]) {
-			console.log("Voici nos ", getProductsByCategoryId(db.products.categoryId))//Afficher les collier 
+		if (product.ProductName.toLowerCase() == predicted_response_product[0].toLowerCase()){
 			current_product = product
-			break
 		}
 	} 
+
+	
+	console.log('predicted_response', predicted_response_product, current_product)
+	
 	//Voici trois propositions choissisez celle qui vous plait 
 
-	const want_qty = prompt(`Combien de ${predicted_response_product} voulez-vous ?`);
+	const want_qty = prompt(`Combien en voulez-vous ?`);
+	
 	predicted_response_number = intentClassifierNumber.classify(product_want);
 
-		console.log(`Vous voulez ${Number(predicted_response_number)} ${current_product}`)
-		products_from_db = await getProductById()
+		console.log(`Vous voulez ${want_qty} bijoux.`)
+		const product_from_db = current_product
 		if (product_from_db.quantity <= 0) {
 			console.log(`Nous n'avons plus de ${product_from_db.name}!`)
 		} else {
@@ -415,14 +437,14 @@ const db = require('./categoriesModel.js', './productModel.js');
 			}
 		}
 	
-	const yesno = prompt(`Souhaitez-vous payer votre ${current_product.name} ?`);
-	predicted_response = intentClassifierAccept.classify(yesno);
-	if (predicted_response[0] == 'non') {
+	const yesno = prompt(`Souhaitez-vous payer votre commande ?`);
+	predicted_response_pay = intentClassifierAccept.classify(yesno);
+	if (predicted_response_pay[0] == 'Non') {
 		console.log('Merci et à la prochaine!')
 	}
-	if (predicted_response[0] == 'oui') {
+	if (predicted_response_pay[0] == 'Oui') {
 		console.log('Merci pour votre achat !')
-		db.updateProduct(current_product.id, product_from_db.quantity - Number(want_qty))
+		//updateProduct(current_product.Id, product_from_db.quantity - Number(want_qty))
 		// création de numéro de commande 
 		//Afficher le numéro de commande 
 	}
