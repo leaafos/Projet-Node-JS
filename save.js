@@ -12,7 +12,7 @@ async function main() {
   //Create
   /*
  await createCategory('Colliers');
-  await createCategory('Bracelts');
+  await createCategory('Bracelets');
   await createCategory( "Boucles d'oreilles");
   await createCategory( 'Bagues');
   await createCategory( 'Piercings');

@@ -44,56 +44,56 @@ const db = require('./categoriesModel.js', './productModel.js');
 		{input: "Je souhaiterais un collier", output: "colliers"},
 		{input: "Bijoux autour du cou", output: "colliers"},
 
-		{input: "Je veux un bracelet", output: "bracelet"},
-		{input: "bracelet", output: "bracelet"},
-		{input: "Des bracelets svp", output: "bracelet"},
-		{input: "Un bracelet", output: "bracelet"},
-		{input: "Serait-il possible d'avoir un bracelet ?", output: "bracelet"},
-		{input: "J'aimerais un bracelet'", output: "bracelet"},
-		{input: "Je souhaiterais un bracelet", output: "bracelet"},
-		{input: "Bijoux autour du poignet", output: "bracelet"},
+		{input: "Je veux un bracelet", output: "bracelts"},
+		{input: "bracelet", output: "bracelts"},
+		{input: "Des bracelets svp", output: "bracelts"},
+		{input: "Un bracelet", output: "bracelts"},
+		{input: "Serait-il possible d'avoir un bracelet ?", output: "bracelts"},
+		{input: "J'aimerais un bracelet'", output: "bracelts"},
+		{input: "Je souhaiterais un bracelet", output: "bracelts"},
+		{input: "Bijoux autour du poignet", output: "bracelts"},
 
-		{input: "Je veux une bague", output: "bague"},
-		{input: "bague", output: "bague"},
-		{input: "Des bagues svp", output: "bague"},
-		{input: "Une bague", output: "bague"},
-		{input: "Serait-il possible d'avoir une bague ?", output: "bague"},
-		{input: "J'aimerais une bague'", output: "bague"},
-		{input: "Je souhaiterais une bague", output: "bague"},
-		{input: "Bijoux autour du doigt", output: "bague"},
-		{input: "Bague de mariage", output: "bague"},
-		{input: "Bague de fiançaille", output: "bague"},
-		{input: "Alliance", output: "bague"},
-		{input: "Chevalière", output: "bague"},
-		{input: "Accessoire de main", output: "bague"},
-		{input: "Symbole d'engagement", output: "bague"},
+		{input: "Je veux une bague", output: "bagues"},
+		{input: "bague", output: "bagues"},
+		{input: "Des bagues svp", output: "bagues"},
+		{input: "Une bague", output: "bagues"},
+		{input: "Serait-il possible d'avoir une bague ?", output: "bagues"},
+		{input: "J'aimerais une bague'", output: "bagues"},
+		{input: "Je souhaiterais une bague", output: "bagues"},
+		{input: "Bijoux autour du doigt", output: "bagues"},
+		{input: "Bague de mariage", output: "bagues"},
+		{input: "Bague de fiançaille", output: "bagues"},
+		{input: "Alliance", output: "bagues"},
+		{input: "Chevalière", output: "bagues"},
+		{input: "Accessoire de main", output: "bagues"},
+		{input: "Symbole d'engagement", output: "bagues"},
 
-		{input: "Je veux une Boucles d'oreille", output: "Boucles d'oreille"},
-		{input: "Boucles d'oreille", output: "Boucles d'oreille"},
-		{input: "Des Boucles d'oreille svp", output: "Boucles d'oreille"},
-		{input: "Des Boucles d'oreille", output: "Boucles d'oreille"},
-		{input: "Serait-il possible d'avoir des Boucles d'oreille ?", output: "Boucles d'oreille"},
-		{input: "J'aimerais des Boucles d'oreille'", output: "Boucles d'oreille"},
-		{input: "Je souhaiterais des Boucles d'oreille", output: "Boucles d'oreille"},
-		{input: "Bijoux aux oreilles", output: "Boucles d'oreille"},
+		{input: "Je veux une Boucles d'oreille", output: "Boucles d'oreilles"},
+		{input: "Boucles d'oreille", output: "Boucles d'oreilles"},
+		{input: "Des Boucles d'oreille svp", output: "Boucles d'oreilles"},
+		{input: "Des Boucles d'oreille", output: "Boucles d'oreilles"},
+		{input: "Serait-il possible d'avoir des Boucles d'oreille ?", output: "Boucles d'oreilles"},
+		{input: "J'aimerais des Boucles d'oreille'", output: "Boucles d'oreilles"},
+		{input: "Je souhaiterais des Boucles d'oreille", output: "Boucles d'oreilles"},
+		{input: "Bijoux aux oreilles", output: "Boucles d'oreilles"},
 
-		{input: "Je veux un Piercing", output: "Piercing"},
-		{input: "Piercings", output: "Piercing"},
-		{input: "Des Piercings svp", output: "Piercing"},
-		{input: "Des Piercigs", output: "Piercing"},
-		{input: "Serait-il possible d'avoir des Pierecing ?", output: "Piercing"},
-		{input: "J'aimerais des Piercing'", output: "Piercing"},
-		{input: "Je souhaiterais des Piercings", output: "Piercing"},
-		{input: "Bijoux aux oreilles", output: "Piercing"},
+		{input: "Je veux un Piercing", output: "Piercings"},
+		{input: "Piercings", output: "Piercings"},
+		{input: "Des Piercings svp", output: "Piercings"},
+		{input: "Des Piercigs", output: "Piercings"},
+		{input: "Serait-il possible d'avoir des Pierecing ?", output: "Piercings"},
+		{input: "J'aimerais des Piercing'", output: "Piercings"},
+		{input: "Je souhaiterais des Piercings", output: "Piercings"},
+		{input: "Bijoux aux oreilles", output: "Piercings"},
 
-		{input: "Je veux un Earcuff", output: "Earcuff"},
-		{input: "Earcuffs", output: "Earcuff"},
-		{input: "Des Earcuffs svp", output: "Earcuff"},
-		{input: "Des Earcufs", output: "Earcuff"},
-		{input: "Serait-il possible d'avoir des Earccuffs ?", output: "Earcuff"},
-		{input: "J'aimerais des Earccufs'", output: "Earcuff"},
-		{input: "Je souhaiterais des Earcuffs", output: "Earcuff"},
-		{input: "Bijoux aux oreilles", output: "Earcuff"},
+		{input: "Je veux un Earcuff", output: "Earcuffs"},
+		{input: "Earcuffs", output: "Earcuffs"},
+		{input: "Des Earcuffs svp", output: "Earcuffs"},
+		{input: "Des Earcufs", output: "Earcuffs"},
+		{input: "Serait-il possible d'avoir des Earccuffs ?", output: "Earcuffs"},
+		{input: "J'aimerais des Earccufs'", output: "Earcuffs"},
+		{input: "Je souhaiterais des Earcuffs", output: "Earcuffs"},
+		{input: "Bijoux aux oreilles", output: "Earcuffs"},
 
 	]);
 
@@ -402,7 +402,7 @@ const db = require('./categoriesModel.js', './productModel.js');
 	
 	for (product of bijoux) {
 		if (current_category.Id == product.CategoryId){
-			console.log(product.ProductName)
+			console.log(product.ProductName, ", Prix : ",product.Price)
 		}
 	} 
 
@@ -417,7 +417,7 @@ const db = require('./categoriesModel.js', './productModel.js');
 	} 
 
 	
-	console.log('predicted_response', predicted_response_product, current_product)
+	console.log('Vous voulez : ', current_product)
 	
 	//Voici trois propositions choissisez celle qui vous plait 
 
@@ -428,7 +428,7 @@ const db = require('./categoriesModel.js', './productModel.js');
 		console.log(`Vous voulez ${want_qty} bijoux.`)
 		const product_from_db = current_product
 		if (product_from_db.quantity <= 0) {
-			console.log(`Nous n'avons plus de ${product_from_db.name}!`)
+			console.log(`Nous n'avons plus de ${current_product}!`)
 		} else {
 			if (Number(want_qty) == 1) {
 				console.log('Ok merci prennez votre bijou!')

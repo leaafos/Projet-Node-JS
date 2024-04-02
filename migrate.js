@@ -13,7 +13,7 @@ async function createTable() {
         table.string('Adress');
         table.integer('Zipcode');
         table.string('Country');
-        table.integer('OrderID');
+        table.integer('OrderId');
       });
       console.log('La table "Customers" a été créée avec succès.');
     } else {
@@ -26,7 +26,7 @@ async function createTable() {
         table.increments('Id').primary();
         table.integer('CustomerId');
         table.integer('ProductId');
-        table.date('DateOrder'); /*à vérifier*/
+        table.date('DateOrder'); 
       });
       console.log('La table "Orders" a été créée avec succès.');
     } else {
@@ -65,7 +65,7 @@ async function createTable() {
     if (!exists) {
       await knex.schema.createTable('OrderDetails', table => {
         table.increments('Id').primary();
-        table.integer('OrderID');
+        table.integer('OrderId');
         table.integer('ProductId');
         table.integer('Quantity');
       });
